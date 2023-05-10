@@ -8,12 +8,12 @@ export default class UserController {
     res.status(200).json({ token });
   }
 
-  // public static async getRole(req: Request, res: Response) {
-  //   let token = '';
-  //   if (req.headers.authorization) token = req.headers.authorization;
+  public static async getRole(req: Request, res: Response) {
+    let token = '';
+    if (req.headers.authorization) token = req.headers.authorization;
 
-  //   const role = await UserService.getRole(token);
+    const role = await UserService.getRole(token);
 
-  //   res.status(200).json({role});
-  // }
+    res.status(200).json({ role });
+  }
 }
