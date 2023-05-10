@@ -1,12 +1,12 @@
 import MatchModel,
 {
   MatchAtrributes,
-  // MatchCreateAtrributes,
+  MatchCreateAtrributes,
 } from '../database/models/Match.models';
 import TeamModel from '../database/models/Team.model';
 import HttpException from '../utils/http.exception';
 // import { createLeaderBoard } from '../utils/leaderBoard';
-// import TeamService from './Team.service';
+import TeamService from './Team.service';
 
 type update = {
   homeTeamGoals: number;
@@ -43,24 +43,26 @@ export default class MatchService {
       homeTeamGoals,
       awayTeamGoals,
     }: update,
-  ): Promise<void> {
+  ): Promise<MatchAtrributes> {
     const result = await MatchModel.findByPk(id);
     if (!result) throw new HttpException(400, 'Match not found');
     result.awayTeamGoals = awayTeamGoals;
     result.homeTeamGoals = homeTeamGoals;
     result.save();
+
+    return result;
   }
 
-  // public static async create(params: MatchCreateAtrributes): Promise<MatchAtrributes> {
-  //   if (params.awayTeamId === params.homeTeamId) {
-  //     throw new HttpException(422, 'It is not possible to create a match with two equal teams');
-  //   }
-  //   await TeamService.getOne(params.homeTeamId);
-  //   await TeamService.getOne(params.awayTeamId);
+  public static async create(params: MatchCreateAtrributes): Promise<MatchAtrributes> {
+    if (params.awayTeamId === params.homeTeamId) {
+      throw new HttpException(422, 'It is not possible to create a match with two equal teams');
+    }
+    await TeamService.getOne(params.homeTeamId);
+    await TeamService.getOne(params.awayTeamId);
 
-  //   const result = MatchModel.create(params);
-  //   return result;
-  // }
+    const result = MatchModel.create(params);
+    return result;
+  }
 
   // public static async leaderBoard(param: string) {
   //   const teams = await TeamService.getAll();
