@@ -1,6 +1,6 @@
 import { compare } from 'bcryptjs';
 import UserModel from '../database/models/User.model';
-import { createToken } from '../utils/auth';
+import { createToken, decodeToken } from '../utils/auth';
 import HttpException from '../utils/http.exception';
 
 export type Login = {
@@ -19,10 +19,10 @@ export default class UserService {
     return createToken(user.id);
   }
 
-  // public static async getRole(token: string) {
-  //   const userId = decodeToken(token).id;
-  //   const user = await UserModel.findByPk(userId);
+  public static async getRole(token: string) {
+    const userId = decodeToken(token).id;
+    const user = await UserModel.findByPk(userId);
 
-  //   return user?.role;
-  // }
+    return user?.role;
+  }
 }
