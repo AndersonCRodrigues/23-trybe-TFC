@@ -6,7 +6,9 @@ const validate = ({ password, email }: Login): void => {
   const validateEmail = email.match(emailRegex);
   const validatePassword = password.length >= 6;
 
-  if (!validateEmail || validatePassword) throw new HttpException(401, 'Invalid email or password');
+  if (!validateEmail || !validatePassword) {
+    throw new HttpException(401, 'Invalid email or password');
+  }
 };
 
 export default validate;
