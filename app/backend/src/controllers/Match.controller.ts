@@ -22,11 +22,11 @@ export default class MatchController {
     res.status(200).json(result);
   }
 
-  // public static async create(req: Request, res: Response) {
-  //   const result = await MatchService.create(req.body);
+  public static async create(req: Request, res: Response) {
+    const result = await MatchService.create(req.body);
 
-  //   res.status(201).json(result);
-  // }
+    res.status(201).json(result);
+  }
 
   // public static async leaderBoard(req: Request, res: Response) {
 
