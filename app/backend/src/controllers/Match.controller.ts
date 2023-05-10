@@ -10,11 +10,11 @@ export default class MatchController {
     res.status(200).json(result);
   }
 
-  // public static async finishMatch(req: Request, res: Response) {
-  //   await MatchService.finishMatch(+ req.params.id);
+  public static async finishMatch(req: Request, res: Response) {
+    await MatchService.finishMatch(+req.params.id);
 
-  //   res.status(200).json({message: "Finished"});
-  // }
+    res.status(200).json({ message: 'Finished' });
+  }
 
   // public static async update(req: Request, res: Response) {
   //   await MatchService.update(+req.params.id, req.body);
