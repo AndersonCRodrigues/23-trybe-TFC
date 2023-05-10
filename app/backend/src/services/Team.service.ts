@@ -1,9 +1,9 @@
-import TeamModel, { TeamAtrributes } from "../database/models/Team.model";
-import HttpException from "../utils/http.exception";
+import HttpException from '../utils/http.exception';
+import TeamModel, { TeamAtrributes } from '../database/models/Team.model';
 
 export default class TeamService {
-  public static async getAll(): Promise<TeamAtrributes[]>{
-    return await TeamModel.findAll()
+  public static async getAll(): Promise<TeamAtrributes[]> {
+    return TeamModel.findAll();
   }
 
   public static async getOne(id: number): Promise<TeamAtrributes> {
