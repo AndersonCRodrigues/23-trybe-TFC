@@ -1,17 +1,17 @@
 import MatchModel,
 {
   MatchAtrributes,
-  MatchCreateAtrributes,
+  // MatchCreateAtrributes,
 } from '../database/models/Match.models';
 import TeamModel from '../database/models/Team.model';
 import HttpException from '../utils/http.exception';
 // import { createLeaderBoard } from '../utils/leaderBoard';
-import TeamService from './Team.service';
+// import TeamService from './Team.service';
 
-type update = {
-  homeTeamGoals: number;
-  awayTeamGoals: number;
-};
+// type update = {
+//   homeTeamGoals: number;
+//   awayTeamGoals: number;
+// };
 
 export default class MatchService {
   public static async getAll(inProgress: string | undefined): Promise<MatchAtrributes[]> {
@@ -30,12 +30,12 @@ export default class MatchService {
     return result;
   }
 
-  // public static async finishMatch(id: number): Promise<void> {
-  //   const result = await MatchModel.findByPk(id);
-  //   if (!result) throw new HttpException(400, 'Matche not found');
-  //   result.inProgress = false;
-  //   result.save();
-  // }
+  public static async finishMatch(id: number): Promise<void> {
+    const result = await MatchModel.findByPk(id);
+    if (!result) throw new HttpException(400, 'Matche not found');
+    result.inProgress = false;
+    result.save();
+  }
 
   // public static async update(
   //   id: number,
