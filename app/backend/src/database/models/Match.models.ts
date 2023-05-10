@@ -36,23 +36,36 @@ MatchModel.init({
   },
   homeTeamId: {
     type: DataTypes.INTEGER,
+    field: 'home_team_id',
+    allowNull: false,
     references: {
       model: 'teams',
       key: 'id',
     },
   },
-  homeTeamGoals: DataTypes.INTEGER,
+  homeTeamGoals: {
+    type: DataTypes.INTEGER,
+    field: 'home_team_goals',
+    allowNull: false,
+  },
   awayTeamId: {
     type: DataTypes.INTEGER,
+    field: 'away_team_id',
+    allowNull: false,
     references: {
       model: 'teams',
       key: 'id',
     },
   },
-  awayTeamGoals: DataTypes.INTEGER,
+  awayTeamGoals: {
+    type: DataTypes.INTEGER,
+    field: 'away_team_goals',
+    allowNull: false,
+  },
   inProgress: {
     type: DataTypes.BOOLEAN,
-    defaultValue: true,
+    field: 'in_progress',
+    defaultValue: false,
   },
 }, {
   tableName: 'matches',
