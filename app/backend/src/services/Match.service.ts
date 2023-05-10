@@ -8,10 +8,10 @@ import HttpException from '../utils/http.exception';
 // import { createLeaderBoard } from '../utils/leaderBoard';
 // import TeamService from './Team.service';
 
-// type update = {
-//   homeTeamGoals: number;
-//   awayTeamGoals: number;
-// };
+type update = {
+  homeTeamGoals: number;
+  awayTeamGoals: number;
+};
 
 export default class MatchService {
   public static async getAll(inProgress: string | undefined): Promise<MatchAtrributes[]> {
@@ -37,19 +37,19 @@ export default class MatchService {
     result.save();
   }
 
-  // public static async update(
-  //   id: number,
-  //   {
-  //     homeTeamGoals,
-  //     awayTeamGoals,
-  //   }: update,
-  // ): Promise<void> {
-  //   const result = await MatchModel.findByPk(id);
-  //   if (!result) throw new HttpException(400, 'Match not found');
-  //   result.awayTeamGoals = awayTeamGoals;
-  //   result.homeTeamGoals = homeTeamGoals;
-  //   result.save();
-  // }
+  public static async update(
+    id: number,
+    {
+      homeTeamGoals,
+      awayTeamGoals,
+    }: update,
+  ): Promise<void> {
+    const result = await MatchModel.findByPk(id);
+    if (!result) throw new HttpException(400, 'Match not found');
+    result.awayTeamGoals = awayTeamGoals;
+    result.homeTeamGoals = homeTeamGoals;
+    result.save();
+  }
 
   // public static async create(params: MatchCreateAtrributes): Promise<MatchAtrributes> {
   //   if (params.awayTeamId === params.homeTeamId) {
