@@ -9,7 +9,7 @@ export default class TeamService {
   public static async getOne(id: number): Promise<TeamAtrributes> {
     const result = await TeamModel.findByPk(id);
 
-    if (!result) throw new HttpException(404, 'There is no team with suck id!');
+    if (!result) throw new HttpException(404, 'There is no team with such id!');
 
     return result;
   }
