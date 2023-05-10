@@ -1,4 +1,4 @@
-import HttpException from '../utils/http.exception';
+// import HttpException from '../utils/http.exception';
 import TeamModel, { TeamAtrributes } from '../database/models/Team.model';
 
 export default class TeamService {
@@ -6,11 +6,11 @@ export default class TeamService {
     return TeamModel.findAll();
   }
 
-  public static async getOne(id: number): Promise<TeamAtrributes> {
-    const result = await TeamModel.findByPk(id);
+  // public static async getOne(id: number): Promise<TeamAtrributes> {
+  //   const result = await TeamModel.findByPk(id);
 
-    if (!result) throw new HttpException(404, 'There is no team with suck id!');
+  //   if (!result) throw new HttpException(404, 'There is no team with suck id!');
 
-    return result;
-  }
+  //   return result;
+  // }
 }
