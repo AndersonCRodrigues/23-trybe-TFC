@@ -24,7 +24,7 @@ export default class MatchService {
 
     if (inProgress) {
       result = result.filter((e: { inProgress: boolean; }) =>
-        e.inProgress === Boolean(inProgress.toLowerCase()));
+        e.inProgress === (inProgress === 'true'));
     }
 
     return result;
