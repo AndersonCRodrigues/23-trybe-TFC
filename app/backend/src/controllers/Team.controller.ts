@@ -7,11 +7,11 @@ export default class TeamController {
     res.status(200).json(result);
   }
 
-  // public static async getOne(req: Request, res: Response) {
-  //   const {id} = req.params;
+  public static async getOne(req: Request, res: Response) {
+    const { id } = req.params;
 
-  //   const result = await TeamService.getOne(+ id);
+    const result = await TeamService.getOne(+id);
 
-  //   res.status(200).json(result);
-  // }
+    res.status(200).json(result);
+  }
 }
