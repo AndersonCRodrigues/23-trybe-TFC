@@ -44,12 +44,14 @@ export default class MatchService {
       homeTeamGoals,
       awayTeamGoals,
     }: update,
-  ): Promise<void> {
+  ): Promise<MatchAtrributes> {
     const result = await MatchModel.findByPk(id);
     if (!result) throw new HttpException(400, 'Match not found');
     result.awayTeamGoals = awayTeamGoals;
     result.homeTeamGoals = homeTeamGoals;
     result.save();
+
+    return result;
   }
 
   public static async create(params: MatchCreateAtrributes): Promise<MatchAtrributes> {
