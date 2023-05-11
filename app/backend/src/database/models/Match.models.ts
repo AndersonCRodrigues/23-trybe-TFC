@@ -42,6 +42,7 @@ MatchModel.init({
       model: 'teams',
       key: 'id',
     },
+    onDelete: 'CASCADE',
   },
   homeTeamGoals: {
     type: DataTypes.INTEGER,
@@ -56,6 +57,7 @@ MatchModel.init({
       model: 'teams',
       key: 'id',
     },
+    onDelete: 'CASCADE',
   },
   awayTeamGoals: {
     type: DataTypes.INTEGER,
