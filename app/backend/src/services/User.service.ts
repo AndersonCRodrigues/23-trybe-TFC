@@ -23,6 +23,8 @@ export default class UserService {
     const userId = decodeToken(token).id;
     const user = await UserModel.findByPk(userId);
 
-    return user?.role;
+    if (!user) throw new HttpException(401, 'Token must be a valid token');
+
+    return user.role;
   }
 }
