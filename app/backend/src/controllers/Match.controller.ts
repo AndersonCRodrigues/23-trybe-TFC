@@ -28,12 +28,11 @@ export default class MatchController {
     res.status(201).json(result);
   }
 
-  // public static async leaderBoard(req: Request, res: Response) {
+  public static async leaderBoard(req: Request, res: Response) {
+    const param = req.path.split('/')[1];
 
-  //   const param = req.path.split('/')[2];
+    // const result = await MatchService.leaderBoard(param);
 
-  //   const result = await MatchService.leaderBoard(param);
-
-  //   res.status(200).json(result);
-  // }
+    res.status(200).json(param);
+  }
 }

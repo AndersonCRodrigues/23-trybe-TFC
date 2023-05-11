@@ -5,7 +5,7 @@ import MatchModel,
 } from '../database/models/Match.models';
 import TeamModel from '../database/models/Team.model';
 import HttpException from '../utils/http.exception';
-// import { createLeaderBoard } from '../utils/leaderBoard';
+import { createLeaderBoard } from '../utils/leaderBoard';
 import TeamService from './Team.service';
 
 type update = {
@@ -64,9 +64,9 @@ export default class MatchService {
     return result;
   }
 
-  // public static async leaderBoard(param: string) {
-  //   const teams = await TeamService.getAll();
-  //   const matches = await this.getAll('true');
-  //   return createLeaderBoard(teams, matches, param);
-  // }
+  public static async leaderBoard(param: string) {
+    const teams = await TeamService.getAll();
+    const matches = await this.getAll('true');
+    return createLeaderBoard(teams, matches, param);
+  }
 }
