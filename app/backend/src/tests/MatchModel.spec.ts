@@ -6,7 +6,7 @@ import { Response } from 'superagent';
 import { app } from '../app';
 const { expect } = chai;
 import MatchService from '../services/Match.service';
-import { allMatches, oneMatch } from './mock/matches.mock';
+import { allMatches, createMatch, oneMatch, returnCreatedMatch } from './mock/matches.mock';
 import * as jwt from '../utils/auth';
 
 
@@ -30,7 +30,7 @@ describe('Matches Router', () => {
       expect(chaiHttpResponse.body).to.be.deep.equal(allMatches);
     });
   });
-  describe('Patch /matches/:id/finish', () => {
+  describe('PATCH /matches/:id/finish', () => {
     it('Deve retornar Finished', async () => {
       Sinon.stub(jwt, 'verifyToken').returns({id: 1});
       Sinon.stub(MatchService, 'finishMatch').resolves();
@@ -42,5 +42,31 @@ describe('Matches Router', () => {
       expect(chaiHttpResponse.status).to.be.equal(200);
       expect(chaiHttpResponse.body).to.be.deep.equal({ message: 'Finished' });
     });
+  });
+  describe('PATCH /mathces/:id', () => {
+    it('Deve retornar status 200 após alterar o match', async () => {
+      Sinon.stub(jwt, 'verifyToken').returns({id: 1});
+      Sinon.stub(MatchService, 'update').resolves();
+
+      chaiHttpResponse = await chai.request(app)
+      .patch('/matches/1')
+      .set('Authorization', 'token-valid');
+
+      expect(chaiHttpResponse.status).to.be.equal(200);
+    })
+  });
+  describe('POST /matches', () => {
+    it('Deve retonar um objeto com a match criada', async () => {
+      Sinon.stub(jwt, 'verifyToken').returns({id: 1});
+      Sinon.stub(MatchService, 'create').resolves(returnCreatedMatch);
+
+      chaiHttpResponse = await chai.request(app)
+        .post('/matches')
+        .send(createMatch)
+        .set('Authorization', 'token-valid');
+
+      expect(chaiHttpResponse.status).to.be.equal(201);
+      expect(chaiHttpResponse.body).to.be.deep.equal(returnCreatedMatch);
+    })
   });
 });
