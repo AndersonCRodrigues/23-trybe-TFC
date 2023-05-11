@@ -32,10 +32,10 @@ describe('Teams Service', () => {
       Sinon.stub(TeamModel, 'findByPk').resolves({id: 1, teamName: 'name'});
       expect(await TeamService.getOne(1)).to.be.deep.equal({id: 1, teamName: 'name'});
     });
-    // it('Deve retorn erro se não encontrar o time', async () => {
-    //   Sinon.stub(TeamModel, 'findByPk').resolves();
+    it('Deve retorn erro se não encontrar o time', async () => {
+      Sinon.stub(TeamModel, 'findByPk').resolves();
 
-    //   expect(await TeamService.getOne(1)).to.be.rejectedWith('There is no team with such id!');
-    // })
+      expect(TeamService.getOne(1)).to.be.rejectedWith('There is no team with such id!');
+    })
   });
 })
