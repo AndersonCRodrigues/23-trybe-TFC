@@ -3,12 +3,10 @@ import * as chai from 'chai';
 // @ts-ignore
 import chaiHttp = require('chai-http');
 import { Response } from 'superagent';
-import { app } from '../app';
 const { expect } = chai;
 // @ts-ignore
 import chaiAsPromised = require('chai-as-promised');
 import TeamService from '../services/Team.service';
-import { allTeams, oneTeam } from './mock/teams.mock';
 import TeamModel from '../database/models/Team.model';
 
 
@@ -16,8 +14,6 @@ chai.use(chaiHttp);
 chai.use(chaiAsPromised);
 
 describe('Teams Service', () => {
-
-  let chaiHttpResponse: Response;
 
   afterEach(() => {
     Sinon.restore();
