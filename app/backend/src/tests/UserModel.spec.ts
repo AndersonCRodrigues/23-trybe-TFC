@@ -27,11 +27,11 @@ describe('Login Router', () => {
       Sinon.stub(UserService, 'login').resolves('token');
 
       chaiHttpResponse = await chai.request(app)
-      .post('/login')
-      .send({
-        email: 'email@email.com',
-        password: '123456',
-      });
+        .post('/login')
+        .send({
+          email: 'email@email.com',
+          password: '123456',
+        });
 
       expect(chaiHttpResponse.status).to.be.equal(200);
       expect(chaiHttpResponse.body).to.be.deep.equal({token: 'token'});
@@ -39,54 +39,54 @@ describe('Login Router', () => {
 
     it('Deve retornar status 400 com parametros faltando', async () => {
       chaiHttpResponse = await chai.request(app)
-      .post('/login')
-      .send({
-        password: '123456',
-      });
+        .post('/login')
+        .send({
+          password: '123456',
+        });
 
       expect(chaiHttpResponse.status).to.be.equal(400);
     })
 
     it('Deve retornar status 401 com parametros incorreto', async () => {
       chaiHttpResponse = await chai.request(app)
-      .post('/login')
-      .send({
-        email: 'email@email.com',
-        password: '12345',
-      });
+        .post('/login')
+        .send({
+          email: 'email@email.com',
+          password: '12345',
+        });
 
       expect(chaiHttpResponse.status).to.be.equal(401);
     })
   });
   describe('GET /login/role', () => {
     it('Deve retornar um objeto com a role do usuário', async () => {
-      Sinon.stub(jwt, 'verifyToken').returns({id: 1})
-      Sinon.stub(UserService, 'getRole').resolves('admin')
+      Sinon.stub(jwt, 'verifyToken').returns({id: 1});
+      Sinon.stub(UserService, 'getRole').resolves('admin');
 
       chaiHttpResponse = await chai.request(app)
-      .get('/login/role')
-      .set('Authorization', 'token-valid');
+        .get('/login/role')
+        .set('Authorization', 'token-valid');
 
       expect(chaiHttpResponse.status).to.be.equal(200);
       expect(chaiHttpResponse.body).to.be.deep.equal({role: 'admin'});
     })
 
     it('Deve retornar status 401 sem passar o token', async () => {
-      Sinon.stub(jwt, 'verifyToken').returns({id: 1})
-      Sinon.stub(UserService, 'getRole').resolves('admin')
+      Sinon.stub(jwt, 'verifyToken').returns({id: 1});
+      Sinon.stub(UserService, 'getRole').resolves('admin');
 
       chaiHttpResponse = await chai.request(app)
-      .get('/login/role');
+        .get('/login/role');
 
       expect(chaiHttpResponse.status).to.be.equal(401);
     })
 
     it('Deve retornar status 401 ao passar o token inválido', async () => {
-      Sinon.stub(UserService, 'getRole').resolves('admin')
+      Sinon.stub(UserService, 'getRole').resolves('admin');
 
       chaiHttpResponse = await chai.request(app)
-      .get('/login/role')
-      .set('Authorization', 'token-invalid');;
+        .get('/login/role')
+        .set('Authorization', 'token-invalid');
 
       expect(chaiHttpResponse.status).to.be.equal(401);
     })

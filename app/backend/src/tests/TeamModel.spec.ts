@@ -6,7 +6,7 @@ import { Response } from 'superagent';
 import { app } from '../app';
 const { expect } = chai;
 import TeamService from '../services/Team.service';
-import { allTeams, oneTeam } from './mock/Teams.mock';
+import { allTeams, oneTeam } from './mock/teams.mock';
 
 
 chai.use(chaiHttp);
