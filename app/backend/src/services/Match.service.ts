@@ -1,3 +1,4 @@
+import { createLeaderBoard } from '../utils/leaderBoard';
 import MatchModel,
 {
   MatchAtrributes,
@@ -5,7 +6,7 @@ import MatchModel,
 } from '../database/models/Match.models';
 import TeamModel from '../database/models/Team.model';
 import HttpException from '../utils/http.exception';
-import { createLeaderBoard } from '../utils/leaderBoard';
+
 import TeamService from './Team.service';
 
 type update = {
@@ -67,6 +68,11 @@ export default class MatchService {
   public static async leaderBoard(param: string) {
     const teams = await TeamService.getAll();
     const matches = await this.getAll('true');
-    return createLeaderBoard(teams, matches, param);
+    const data = createLeaderBoard(teams, matches, param);
+    return data
+      .sort((a, b) =>
+        a.totalVictories - b.totalVictories
+        && a.goalsBalance - b.goalsBalance
+        && a.goalsOwn - b.goalsOwn);
   }
 }
