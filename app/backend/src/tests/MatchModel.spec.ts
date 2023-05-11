@@ -6,7 +6,7 @@ import { Response } from 'superagent';
 import { app } from '../app';
 const { expect } = chai;
 import MatchService from '../services/Match.service';
-import { allMatches, createMatch, oneMatch, returnCreatedMatch } from './mock/matches.mock';
+import { allMatches, createMatch, matchLeaderBoard, oneMatch, returnCreatedMatch } from './mock/matches.mock';
 import * as jwt from '../utils/auth';
 
 
@@ -68,5 +68,16 @@ describe('Matches Router', () => {
       expect(chaiHttpResponse.status).to.be.equal(201);
       expect(chaiHttpResponse.body).to.be.deep.equal(returnCreatedMatch);
     })
+  });
+  describe('GET /leaderboard', () => {
+    it('Deve devolver um array de Boar', async () => {
+      Sinon.stub(MatchService, 'leaderBoard').resolves(matchLeaderBoard);
+
+      chaiHttpResponse = await chai.request(app)
+        .get('/leaderboard');
+
+      expect(chaiHttpResponse.status).to.be.equal(200);
+      expect(chaiHttpResponse.body).to.be.deep.equal(matchLeaderBoard);
+    });
   });
 });
