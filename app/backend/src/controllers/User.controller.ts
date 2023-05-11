@@ -9,8 +9,7 @@ export default class UserController {
   }
 
   public static async getRole(req: Request, res: Response) {
-    let token = '';
-    if (req.headers.authorization) token = req.headers.authorization;
+    const token = req.headers.authorization as string;
 
     const role = await UserService.getRole(token);
 
