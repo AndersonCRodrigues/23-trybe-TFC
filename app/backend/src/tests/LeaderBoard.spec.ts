@@ -4,7 +4,7 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 const { expect } = chai;
 import * as board from '../utils/leaderBoard';
-import {allMatchesTrue, allTeamsBoard, dataAway, dataHome} from './mock/createLeaderBoard.mock';
+import {allMatchesTrue, allTeamsBoard, dataAway, dataHome, dataNoParams} from './mock/createLeaderBoard.mock';
 
 describe('CreateLeaderBoard', () => {
 
@@ -22,5 +22,11 @@ describe('CreateLeaderBoard', () => {
 
     expect(board.createLeaderBoard(allTeamsBoard, allMatchesTrue, 'away'))
       .to.be.deep.equal(dataAway)
+  });
+  it('Deve retornar lista com Board paramentro null', () => {
+    Sinon.stub(board, 'LeaderBoard').returns(dataNoParams);
+
+    expect(board.createLeaderBoard(allTeamsBoard, allMatchesTrue, 'null'))
+      .to.be.deep.equal(dataNoParams)
   });
 });

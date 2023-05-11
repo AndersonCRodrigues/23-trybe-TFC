@@ -52,6 +52,33 @@ const dataAway = [
     },
 ];
 
+const dataNoParams = [
+    {
+    "efficiency": 100,
+    "goalsBalance": 2,
+    "goalsFavor": 2,
+    "goalsOwn": 0,
+    "name": "Avaí/Kindermann",
+    "totalDraws": 0,
+    "totalGames": 1,
+    "totalLosses": 0,
+    "totalPoints": 3,
+    "totalVictories": 1,
+    },
+    {
+    "efficiency": 0,
+    "goalsBalance": -2,
+    "goalsFavor": 0,
+    "goalsOwn": 2,
+    "name": "Bahia",
+    "totalDraws": 0,
+    "totalGames": 1,
+    "totalLosses": 1,
+    "totalPoints": 0,
+    "totalVictories": 0,
+    },
+];
+
 const allMatchesTrue = [
     {
         "id": 41,
@@ -80,4 +107,4 @@ const allTeamsBoard = [
     },
 ];
 
-export {dataHome, allMatchesTrue , allTeamsBoard, dataAway}
+export {dataHome, allMatchesTrue , allTeamsBoard, dataAway, dataNoParams}
