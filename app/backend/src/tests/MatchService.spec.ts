@@ -102,7 +102,7 @@ describe('Match Service', () => {
       // @ts-ignore
       Sinon.stub(MatchModel, 'findByPk').resolves();
 
-      expect(await MatchService.update(1, data))
+      expect(MatchService.update(1, data))
         .to.be.rejectedWith('Match not found');
 
     });
