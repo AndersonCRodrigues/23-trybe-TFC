@@ -70,9 +70,8 @@ export default class MatchService {
     const matches = await this.getAll('false');
     const data = createLeaderBoard(teams, matches, param);
     return data
-      .sort((a, b) =>
-        b.totalVictories - a.totalVictories
-        && b.goalsBalance - a.goalsBalance
-        && b.goalsFavor - a.goalsFavor);
+      .sort((a, b) => b.goalsFavor - a.goalsFavor)
+      .sort((a, b) => b.goalsBalance - a.goalsBalance)
+      .sort((a, b) => b.totalPoints - a.totalPoints);
   }
 }
