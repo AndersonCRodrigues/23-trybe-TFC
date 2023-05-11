@@ -31,8 +31,8 @@ export default class MatchController {
   public static async leaderBoard(req: Request, res: Response) {
     const param = req.path.split('/')[1];
 
-    // const result = await MatchService.leaderBoard(param);
+    const result = await MatchService.leaderBoard(param);
 
-    res.status(200).json(param);
+    res.status(200).json(result);
   }
 }

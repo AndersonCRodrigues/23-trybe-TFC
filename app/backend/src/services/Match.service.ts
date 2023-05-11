@@ -67,12 +67,12 @@ export default class MatchService {
 
   public static async leaderBoard(param: string) {
     const teams = await TeamService.getAll();
-    const matches = await this.getAll('true');
+    const matches = await this.getAll('false');
     const data = createLeaderBoard(teams, matches, param);
     return data
       .sort((a, b) =>
-        a.totalVictories - b.totalVictories
-        && a.goalsBalance - b.goalsBalance
-        && a.goalsOwn - b.goalsOwn);
+        b.totalVictories - a.totalVictories
+        && b.goalsBalance - a.goalsBalance
+        && b.goalsFavor - a.goalsFavor);
   }
 }

@@ -11,7 +11,7 @@ export type Board = {
   goalsFavor: number;
   goalsOwn: number;
   goalsBalance: number;
-  efficieny: number;
+  efficiency: number;
 };
 
 class LeaderBoard {
@@ -24,16 +24,24 @@ class LeaderBoard {
   private declare goalsFavor: number;
   private declare goalsOwn: number;
   private declare goalsBalance: number;
-  private declare efficieny: number;
+  private declare efficiency: number;
 
   constructor(name: string) {
     this.name = name;
+    this.totalPoints = 0;
+    this.totalGames = 0;
+    this.totalVictories = 0;
+    this.totalDraws = 0;
+    this.totalLosses = 0;
+    this.goalsFavor = 0;
+    this.goalsOwn = 0;
+    this.goalsBalance = 0;
+    this.efficiency = 0;
   }
 
   private contator(timeA: number, timeB: number): void {
-    this.goalsOwn += timeA;
-    this.goalsFavor += timeB;
-
+    this.goalsOwn += timeB;
+    this.goalsFavor += timeA;
     if (timeA > timeB) {
       this.totalPoints += 3;
       this.totalVictories += 1;
@@ -56,27 +64,26 @@ class LeaderBoard {
       goalsFavor: this.goalsFavor,
       goalsOwn: this.goalsOwn,
       goalsBalance: this.goalsBalance,
-      efficieny: +this.efficieny.toFixed(2),
+      efficiency: +this.efficiency.toFixed(2),
     };
   }
 
-  private setEfficieny(): void {
-    this.efficieny = ((this.totalPoints / (this.totalGames * 3)) * 100);
+  private setEfficiency(): void {
+    this.efficiency = ((this.totalPoints / (this.totalGames * 3)) * 100);
   }
 
   private setGoalBalance(): void {
-    this.goalsBalance = this.goalsOwn - this.goalsFavor;
+    this.goalsBalance = this.goalsFavor - this.goalsOwn;
   }
 
   public getBoard(id: number, games: MatchAtrributes[]): Board {
     this.totalGames = games.length;
-
     games.forEach((e) => {
       if (e.homeTeamId === id) this.contator(e.homeTeamGoals, e.awayTeamGoals);
       else this.contator(e.awayTeamGoals, e.homeTeamGoals);
     });
 
-    this.setEfficieny();
+    this.setEfficiency();
     this.setGoalBalance();
     return this.modelo();
   }
@@ -99,13 +106,7 @@ const createLeaderBoard = (
     return team.getBoard(t.id, matches.filter((m) =>
       m.awayTeamId === t.id || m.homeTeamId === t.id));
   });
-
   return result;
 };
 
 export { createLeaderBoard, LeaderBoard };
-
-// .sort((a, b) =>
-// a.totalVictories - b.totalVictories
-// && a.goalsBalance - b.goalsBalance
-// && a.goalsOwn - b.goalsOwn);
