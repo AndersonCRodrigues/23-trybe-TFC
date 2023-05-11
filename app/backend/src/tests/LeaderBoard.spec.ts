@@ -1,7 +1,6 @@
 import * as Sinon from 'sinon';
 import * as chai from 'chai';
 // @ts-ignore
-import chaiHttp = require('chai-http');
 const { expect } = chai;
 import * as board from '../utils/leaderBoard';
 import {allMatchesTrue, allTeamsBoard, dataAway, dataHome, dataNoParams} from './mock/createLeaderBoard.mock';

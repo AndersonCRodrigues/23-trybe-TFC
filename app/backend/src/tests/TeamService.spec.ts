@@ -2,7 +2,6 @@ import * as Sinon from 'sinon';
 import * as chai from 'chai';
 // @ts-ignore
 import chaiHttp = require('chai-http');
-import { Response } from 'superagent';
 const { expect } = chai;
 // @ts-ignore
 import chaiAsPromised = require('chai-as-promised');

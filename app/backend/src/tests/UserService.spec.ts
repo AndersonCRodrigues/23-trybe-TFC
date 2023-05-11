@@ -2,7 +2,6 @@ import * as Sinon from 'sinon';
 import * as chai from 'chai';
 // @ts-ignore
 import chaiHttp = require('chai-http');
-import { Response } from 'superagent';
 const { expect } = chai;
 // @ts-ignore
 import chaiAsPromised = require('chai-as-promised');
@@ -10,7 +9,6 @@ import UserService from '../services/User.service';
 import UserModel from '../database/models/User.model';
 import * as bcrypt from 'bcryptjs';
 import * as jwt from '../utils/auth';
-import HttpException from '../utils/http.exception';
 
 chai.use(chaiHttp);
 chai.use(chaiAsPromised);
