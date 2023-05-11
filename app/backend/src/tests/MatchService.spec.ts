@@ -30,6 +30,14 @@ describe('Match Service', () => {
       expect(await MatchService.getAll(undefined))
       .to.be.equal(allMatches);
     });
+
+    it('Deve retornar array de matches com inProgress == true', async () => {
+      // @ts-ignore
+      Sinon.stub(MatchModel, 'findAll').resolves(allMatches);
+
+      expect(await MatchService.getAll('true'))
+      .to.be.deep.equal([]);
+    });
   });
   describe('finishMatch', () => {
     it('Deve mudar o inProgress de um match', async () => {
@@ -39,19 +47,37 @@ describe('Match Service', () => {
       expect(await MatchService.finishMatch(1)).to.haveOwnProperty('inProgress', false);
       expect(await MatchService.finishMatch(1)).to.haveOwnProperty('save');
     });
+    it('Deve retornar erro ao não encontrar o match', async () => {
+      // @ts-ignore
+      Sinon.stub(MatchModel, 'findByPk').resolves();
+
+      expect(MatchService.finishMatch(1))
+        .to.be.rejectedWith('Matche not found');
+    });
   });
   describe('create', () => {
     it('Deve mudar retornar um match criado', async () => {
-      const data = {
-        homeTeamGoals: 3,
-        awayTeamGoals: 1
-      };
       // @ts-ignore
       Sinon.stub(MatchModel, 'create').resolves(returnCreatedMatch);
       // @ts-ignore
       Sinon.stub(TeamService, 'getOne').resolves({})
 
       expect(await MatchService.create(createMatch)).to.be.deep.equal(returnCreatedMatch);
+    });
+    it('Deve retornar erro ao passar 2 id iguais', async () => {
+      const createMatchFail = {
+        "homeTeamId": 1,
+        "awayTeamId": 1,
+        "homeTeamGoals": 2,
+        "awayTeamGoals": 2,
+    };
+      // @ts-ignore
+      Sinon.stub(MatchModel, 'create').resolves(returnCreatedMatch);
+      // @ts-ignore
+      Sinon.stub(TeamService, 'getOne').resolves({})
+
+      expect(MatchService.create(createMatchFail))
+        .to.be.rejectedWith('It is not possible to create a match with two equal teams');
     });
   });
   describe('update', () => {
@@ -67,6 +93,18 @@ describe('Match Service', () => {
         .to.be.haveOwnProperty( 'homeTeamGoals', 3);
         expect(await MatchService.update(1, data))
         .to.be.haveOwnProperty( 'awayTeamGoals', 1);
+    });
+    it('Deve retornar ao não encontrar o match', async () => {
+      const data = {
+        homeTeamGoals: 3,
+        awayTeamGoals: 1
+      };
+      // @ts-ignore
+      Sinon.stub(MatchModel, 'findByPk').resolves();
+
+      expect(await MatchService.update(1, data))
+        .to.be.rejectedWith('Match not found');
+
     });
   });
   describe('leaderBoard', () => {
