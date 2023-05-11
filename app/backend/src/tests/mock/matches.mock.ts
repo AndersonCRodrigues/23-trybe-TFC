@@ -74,6 +74,15 @@ const returnCreatedMatch = {
     "inProgress": true,
 };
 
+const changedCreatedMatch = {
+    "id": 1,
+    "homeTeamId": 16,
+    "homeTeamGoals": 3,
+    "awayTeamId": 8,
+    "awayTeamGoals": 1,
+    "inProgress": true,
+};
+
 const matchUpdate = {
     "homeTeamGoals": 3,
     "awayTeamGoals": 1,
@@ -119,4 +128,4 @@ const matchLeaderBoard = [
     },
 ];
 
-export { allMatches, oneMatch, createMatch, returnCreatedMatch, matchUpdate, matchLeaderBoard };
+export { allMatches, oneMatch, createMatch, returnCreatedMatch, matchUpdate, matchLeaderBoard, changedCreatedMatch };

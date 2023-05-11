@@ -8,7 +8,7 @@ const { expect } = chai;
 import chaiAsPromised = require('chai-as-promised');
 import MatchModel from '../database/models/Match.models';
 import MatchService from '../services/Match.service';
-import { allMatches, createMatch, matchLeaderBoard, matchUpdate, returnCreatedMatch } from './mock/matches.mock';
+import { allMatches, changedCreatedMatch, createMatch, matchLeaderBoard, matchUpdate, returnCreatedMatch } from './mock/matches.mock';
 import TeamService from '../services/Team.service';
 import * as Board from '../utils/leaderBoard';
 
@@ -40,11 +40,11 @@ describe('Match Service', () => {
       expect(await MatchService.finishMatch(1)).to.haveOwnProperty('save');
     });
   });
-  describe('update', () => {
+  describe('create', () => {
     it('Deve mudar retornar um match criado', async () => {
       const data = {
-        "homeTeamGoals": 3,
-        "awayTeamGoals": 1
+        homeTeamGoals: 3,
+        awayTeamGoals: 1
       };
       // @ts-ignore
       Sinon.stub(MatchModel, 'create').resolves(returnCreatedMatch);
@@ -52,6 +52,21 @@ describe('Match Service', () => {
       Sinon.stub(TeamService, 'getOne').resolves({})
 
       expect(await MatchService.create(createMatch)).to.be.deep.equal(returnCreatedMatch);
+    });
+  });
+  describe('update', () => {
+    it('Deve mudar retornar um match alterado', async () => {
+      const data = {
+        homeTeamGoals: 3,
+        awayTeamGoals: 1
+      };
+      // @ts-ignore
+      Sinon.stub(MatchModel, 'findByPk').resolves({...returnCreatedMatch, save: () => {}});
+
+      expect(await MatchService.update(1, data))
+        .to.be.haveOwnProperty( 'homeTeamGoals', 3);
+        expect(await MatchService.update(1, data))
+        .to.be.haveOwnProperty( 'awayTeamGoals', 1);
     });
   });
   describe('leaderBoard', () => {
