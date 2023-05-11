@@ -31,11 +31,12 @@ export default class MatchService {
     return result;
   }
 
-  public static async finishMatch(id: number): Promise<void> {
+  public static async finishMatch(id: number): Promise<MatchAtrributes> {
     const result = await MatchModel.findByPk(id);
     if (!result) throw new HttpException(400, 'Matche not found');
     result.inProgress = false;
     result.save();
+    return result;
   }
 
   public static async update(
