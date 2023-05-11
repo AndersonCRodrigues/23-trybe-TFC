@@ -1,5 +1,5 @@
-import { DataTypes, Model } from "sequelize";
-import sequelize from ".";
+import { DataTypes, Model } from 'sequelize';
+import sequelize from '.';
 
 export interface TeamAtrributes {
   id: number;
